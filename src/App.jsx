@@ -5,13 +5,14 @@ import {
   useColorScheme
 } from 'react-native'
 import MainNavigator from './navigation/Navigator'
+import BootSplash from 'react-native-bootsplash'
 
 function App () {
   const isDarkMode = useColorScheme() === 'dark'
 
   return (
-    <NavigationContainer>
-      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
+    <NavigationContainer onReady={() => BootSplash.hide({ fade: true })}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <MainNavigator />
     </NavigationContainer>
   )
