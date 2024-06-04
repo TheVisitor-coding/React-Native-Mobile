@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://api.clarifai.com/v2',
+  baseURL: process.env.CLARIFAI_API_URL,
   headers: {
-    Authorization: 'Key a53727b301404918865a9dc2fbc59834',
+    Authorization: `Key ${process.env.CLARIFAI_API_KEY}`,
     'Content-Type': 'application/json'
   }
 })

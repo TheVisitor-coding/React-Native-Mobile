@@ -7,7 +7,7 @@ import { getBase64FromImage } from '../../utils/image'
 // import { identifyImage } from '../../services/ClarifaiApi'
 import { Spinner } from '@ui-kitten/components'
 
-function CustomCamera ({ setResult, setImgPath }) {
+function CustomCamera ({ setResult }) {
   const cameraRef = useRef(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -15,11 +15,9 @@ function CustomCamera ({ setResult, setImgPath }) {
     setIsLoading(true)
     if (cameraRef.current) {
       const image = await cameraRef.current.capture()
-      console.log('image', image)
       if (image) {
         const base64 = await getBase64FromImage(image.uri)
         setResult(base64)
-        setImgPath(image.uri)
         // const res = await identifyImage(base64)
         // setResult && setResult(res)
       }

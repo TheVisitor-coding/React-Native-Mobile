@@ -1,8 +1,8 @@
-const cutoutImage = async (base64) => {
+const removeBg = async (base64) => {
   const options = {
     method: 'POST',
     headers: {
-      'x-api-key': process.env.PHOTOROOM_API_KEY,
+      'x-api-key': process.env.REMOVE_BG_API_KEY,
       'Content-Type': 'application/json',
       Accept: 'application/json'
     },
@@ -12,10 +12,10 @@ const cutoutImage = async (base64) => {
   }
 
   try {
-    const response = await fetch(process.env.PHOTOROOM_API_URL, options)
+    const response = await fetch(process.env.REMOVE_BG_API_URL, options)
     const responseJson = await response.json()
-    if (responseJson?.result_b64) {
-      return responseJson.result_b64
+    if (responseJson?.data?.result_b64) {
+      return responseJson.data.result_b64
     } else {
       console.error(responseJson)
     }
@@ -25,5 +25,5 @@ const cutoutImage = async (base64) => {
 }
 
 export {
-  cutoutImage
+  removeBg
 }
