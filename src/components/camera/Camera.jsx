@@ -1,51 +1,46 @@
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, Animated } from 'react-native'
 import { Camera, CameraType } from 'react-native-camera-kit'
 import styles from '../../styles/cameraStyle'
 import { useRef, useState } from 'react'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { getBase64FromImage } from '../../utils/image'
-// import { identifyImage } from '../../services/ClarifaiApi'
-import { Spinner } from '@ui-kitten/components'
+import { flashIcon } from '../../utils/camera'
+import ActionsButtons from './ActionsButtons'
 
-function CustomCamera ({ setResult }) {
+function CustomCamera ({ navigation }) {
   const cameraRef = useRef(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [cameraType, setCameraType] = useState(CameraType.Front)
+  const [flashIconIndex, setFlashIconIndex] = useState(0)
+  const [zoom, setZoom] = useState(1)
 
-  const handleTakePicture = async () => {
-    setIsLoading(true)
-    if (cameraRef.current) {
-      const image = await cameraRef.current.capture()
-      if (image) {
-        const base64 = await getBase64FromImage(image.uri)
-        setResult(base64)
-        // const res = await identifyImage(base64)
-        // setResult && setResult(res)
-      }
-    }
-    setIsLoading(false)
-  }
   return (
     <>
       <View style={styles.container}>
         <Camera
           ref={cameraRef}
           style={styles.camera}
-          cameraType={CameraType.Front}
+          cameraType={cameraType}
           zoomMode='on'
+          zoom={zoom}
+          maxZoom={6}
+          flashMode={flashIcon[flashIconIndex].mode}
         />
         <TouchableOpacity
-          style={styles.cameraButton}
-          onPress={handleTakePicture}
+          style={styles.cameraZoom}
+          onPress={() => setZoom(1)}
         >
-          {
-            isLoading
-              ? <Spinner size='large' />
-              : <Icon
-                  name='camera-iris' size={40} color='white'
-                />
-          }
-
+          <Animated.Text>
+            {zoom ? zoom.toFixed(1) : '?'}x
+          </Animated.Text>
         </TouchableOpacity>
+
+        <ActionsButtons
+          cameraRef={cameraRef}
+          cameraType={cameraType}
+          setCameraType={setCameraType}
+          flashIconIndex={flashIconIndex}
+          setFlashIconIndex={setFlashIconIndex}
+          setZoom={setZoom}
+          navigation={navigation}
+        />
       </View>
     </>
   )

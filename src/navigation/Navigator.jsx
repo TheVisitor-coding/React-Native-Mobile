@@ -4,11 +4,25 @@ import ProductsScreen from '../screens/ProductsScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import CustomTapBar from './Navbar'
-import ShowPicture from '../components/camera/ShowPicture'
+import PictureScreen from '../screens/PictureScreen'
+import ResultScreen from '../screens/ResultScreen'
 
 const Stack = createStackNavigator()
 
 const CameraStack = createStackNavigator()
+
+// const ResultsStack = createStackNavigator()
+
+// const ResultsNavigator = () => {
+//   return (
+//     <ResultsStack.Navigator
+//       screenOptions={{ headerShown: false }}
+//       initialRouteName='Results'
+//     >
+//       <ResultsStack.Screen name='Results' component={ResultScreen} />
+//     </ResultsStack.Navigator>
+//   )
+// }
 
 const CameraNavigator = () => {
   return (
@@ -17,7 +31,8 @@ const CameraNavigator = () => {
       initialRouteName='Camera'
     >
       <CameraStack.Screen name='Camera' component={HomeScreen} />
-      <CameraStack.Screen name='Picture' component={ShowPicture} />
+      <CameraStack.Screen name='Picture' component={PictureScreen} />
+      <CameraStack.Screen name='Result' component={ResultScreen} />
     </CameraStack.Navigator>
   )
 }

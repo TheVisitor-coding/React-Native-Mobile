@@ -8,7 +8,6 @@ export default StyleSheet.create({
   listItem: {
     flex: 1,
     flexDirection: 'row',
-    gap: 20,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 50,
