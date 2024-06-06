@@ -11,6 +11,7 @@ function PictureScreen ({ route, navigation }) {
   const { base64 } = route.params
   const [base64Img, setBase64Img] = useState(base64)
   const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingAnalyse, setIsLoadingAnalyse] = useState(false)
 
   //   const handleCutoutPicture = async () => {
   //     setIsLoading(true)
@@ -41,13 +42,14 @@ function PictureScreen ({ route, navigation }) {
   }
 
   const handleAnalysePicture = async () => {
+    setIsLoadingAnalyse(true)
     try {
       // const result = await identifyImage(base64Img)
       const result = await identifyImageWithLlava(base64Img)
       if (result) {
-        console.log(result?.outputs[0]?.data?.text)
-        // navigation.navigate('Result', { result })
+        navigation.navigate('Result', { result })
       }
+      setIsLoadingAnalyse(false)
     } catch (error) {
       console.error(error)
     }
@@ -75,6 +77,7 @@ function PictureScreen ({ route, navigation }) {
         handleAnalysePicture={handleAnalysePicture}
         handleRemoveBackground={handleRemoveBackground}
         isLoading={isLoading}
+        isLoadingAnalyse={isLoadingAnalyse}
       />
 
     </>

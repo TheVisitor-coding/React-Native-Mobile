@@ -7,7 +7,7 @@ const removeBg = async (base64) => {
       Accept: 'application/json'
     },
     body: JSON.stringify({
-      image_file_b64: base64.split(',')[1]
+      image_file_b64: base64
     })
   }
 

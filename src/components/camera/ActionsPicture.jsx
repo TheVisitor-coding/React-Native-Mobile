@@ -5,7 +5,8 @@ function ActionsPicture (
   {
     handleAnalysePicture,
     handleRemoveBackground,
-    isLoading
+    isLoading,
+    isLoadingAnalyse
   }
 
 ) {
@@ -25,7 +26,11 @@ function ActionsPicture (
         appearance='filled'
         onPress={handleAnalysePicture}
       >
-        Analyser la Photo
+        {
+                isLoadingAnalyse
+                  ? <Spinner size='small' status='basic' />
+                  : 'Analyser la Photo'
+        }
       </Button>
     </Layout>
   )
